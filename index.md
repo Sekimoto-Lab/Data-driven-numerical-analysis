@@ -4,6 +4,7 @@
 
 1. Governing equations & Boundary conditions
 2. Python sample code
+
 ```python
 import numpy as np 
 import matplotlib.pyplot as plt 
