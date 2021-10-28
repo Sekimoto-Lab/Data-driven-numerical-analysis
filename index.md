@@ -34,5 +34,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 
 ### Support or Contact
 
-[Homepage](
-https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+[Atsushi Sekimoto Lab. Homepage](https://sites.google.com/view/sekimoto-lab/lectures/%E3%83%87%E3%83%BC%E3%82%BF%E9%A7%86%E5%8B%95%E5%9E%8B%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97-data-driven-numerical-analysis)
