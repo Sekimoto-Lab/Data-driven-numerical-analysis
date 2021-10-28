@@ -1,5 +1,4 @@
-## Welcome to the support page of Lectures (informational environmental modeling) 
-
+## Informational environmental modeling -- support page --
 ### 1D heat transfer
 
 ### 2D heat transfer
