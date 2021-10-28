@@ -33,7 +33,6 @@ plt.plot(zp, T, marker='o');
 plt.xlim([0, 1]); plt.ylim([0, 1]); plt.show()
 
 T0 = T.copy();
-
 ```
 
 ### 2D heat transfer
