@@ -10,7 +10,7 @@
 1. Governing equations & Boundary conditions
 2. Python sample code
 
-### 2D Cavity flow [Link](https://github.com/Sekimoto-Lab/Cavity)
+### 2D Cavity flow [Link (GitHub source code)](https://github.com/Sekimoto-Lab/Cavity)
 
 1. Governing equations & Boundary conditions
 2. Python sample code
