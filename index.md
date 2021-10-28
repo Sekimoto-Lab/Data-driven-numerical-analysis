@@ -1,10 +1,19 @@
-## 2021 Data-driven numerical analysis & Informational environmental modeling 
+## Support page for Data-driven numerical analysis & Informational environmental modeling 
 
 ### 1D heat transfer
 
+1. Governing equations & Boundary conditions
+2. Python sample code
+
 ### 2D heat transfer
 
+1. Governing equations & Boundary conditions
+2. Python sample code
+
 ### 2D Cavity flow [Link](https://github.com/Sekimoto-Lab/Cavity)
+
+1. Governing equations & Boundary conditions
+2. Python sample code
 
 ---
 ### Markdown
