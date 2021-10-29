@@ -102,6 +102,7 @@ vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 ## 必要な関数を定義
 
 x方向の速度の更新用の関数
+改行コード(/)のあとにスペースが有るとエラーが出るので注意．
 ```Python
 def calc_aux_u(uaux,u,v):
     for jc in range(1, Ny):
