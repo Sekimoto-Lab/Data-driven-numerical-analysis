@@ -96,7 +96,7 @@ vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 ```
 
 x方向の速度の更新用の関数
-```
+```Python
 def calc_aux_u(uaux,u,v):
     for jc in range(1, Ny):
         for i in range(1, Nx+1):
@@ -119,11 +119,57 @@ def set_bc_u(u):
     for jc in range(0,Ny+1): 
         u[jc,1] =0.e0; 
         u[jc,Nx]=0.e0
-        u[jc,0] = -u[jc,2] # left imaginary cell (for visualization)
-        u[jc,Nx+1] = -u[jc,Nx-1] # right imaginary cell (for visualization)
+        #u[jc,0] = -u[jc,2] # left imaginary cell (for visualization)
+        #u[jc,Nx+1] = -u[jc,Nx-1] # right imaginary cell (for visualization)
 
     # bottom and top walls (embedded)
     for i in range(0,Nx+2):
         u[0,i] = -u[1,i]  # bottom wall (uc=0)
         u[Ny,i] = -u[Ny-1,i]+2.e0*Uwall # moving wall (uc=Uwall)
 ```
+
+y方向の速度の更新用の関数
+```Python
+def calc_aux_v(vaux,u,v):
+    for j in range(1, Ny+1):
+        for ic in range(1, Nx):
+            # 
+            visc = (v[j-1, ic]-2e0*v[j, ic]+v[j+1, ic])/dy2 \
+                    +(v[j, ic-1]-2e0*v[j, ic]+v[j, ic+1])/dx2
+            conv = (+( ( u[j-1, ic]+u[j, ic])/2e0 \
+                              *(-v[j, ic-1]+v[j, ic])/dx ) \
+                          +( ( u[j-1, ic+1]+u[j, ic+1])/2e0 \
+                              *(-v[j, ic]+v[j, ic+1])/dx ) \
+                         )/2e0 \
+                       +(+( ( v[j-1, ic]+v[j, ic])/2e0 \
+                              *(-v[j-1, ic]+v[j, ic])/dy ) \
+                           +( ( v[j, ic]+v[j+1, ic])/2e0 \
+                              *(-v[j, ic]+v[j+1, ic])/dy ) \
+                         )/2e0
+            vaux[j, ic] = v[j, ic] + dt*(-conv + nu*visc) 
+
+def set_bc_v(v):
+    # left and right walls (embedded)
+    for j in range(0,Ny+2):    
+        v[j,0] = -v[j,1]
+        v[j,Nx]= -v[j,Nx-1]
+
+    # bottom and top walls (on walls)
+    for ic in range(0,Nx+1):
+        v[1,ic]  =0.e0
+        v[Ny,ic] =0.e0
+        #v[0,ic]  = -v[2,ic]
+        #v[Ny+1,ic] = -v[Ny-1,ic]
+```
+
+発散の計算
+```Python
+def divergence(div,u,v):
+    for jc in range(1,Ny):
+        for ic in range(1,Nx):
+            div[jc,ic] = ( (-u[jc,ic] + u[jc, ic+1])/dx \
+                       +(-v[jc,ic] + v[jc+1, ic])/dy \
+```
+
+                 
+                      )/dt
