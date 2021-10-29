@@ -3,11 +3,8 @@
 ### [1D heat transfer (Python sample code)](1d-heat-transfer.md)
 
 
-
 ### [2D heat transfer (Python sample code)](2d-heat-transfer.md)
 
-1. Governing equations & Boundary conditions
-2. Python sample code
 
 ### 2D Cavity flow [Link (GitHub source code)](https://github.com/Sekimoto-Lab/Cavity)
 
