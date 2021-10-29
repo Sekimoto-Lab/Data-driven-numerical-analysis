@@ -1,5 +1,6 @@
 ## Cavity flow by Fractional step method
 
+### まずは初期設定
 ```Python
 import numpy as np 
 import matplotlib.pyplot as plt # 図の作成環境のロード
@@ -95,6 +96,7 @@ ur=np.array(np.zeros((Ny, Nx+2),dtype=np.float64))
 vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 ```
 
+### 必要な関数を定義
 x方向の速度の更新用の関数
 ```Python
 def calc_aux_u(uaux,u,v):
@@ -214,3 +216,40 @@ def correct_v(v, vaux, p):
             v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
 ```
 
+##　個々からメインの実行
+```Python
+time_ini=time.time()
+ifield=0; 
+for itr in tqdm(range(0,Nt)):
+    t0=time.time()
+    calc_aux_u(uaux, u, v) # fixed 2021/07/10
+    set_bc_u(uaux)
+    calc_aux_v(vaux, u, v)
+    set_bc_v(vaux)
+    divergence(dive, uaux, vaux)
+    
+    err_r=1.e0; itr_SOR=0
+    while err_r > err_tol:
+        itr_SOR += 1
+        err_r=calcP(p, dive)
+        if itr < 10: 
+            if itr_SOR >1000: 
+                break
+        elif itr < 20: 
+            if itr_SOR >5000: 
+                break        
+        elif itr < 30: 
+            if itr_SOR >10000: 
+                break
+    if np.isnan(err_r)==1:
+        print('NaN: at itr='+str(itr)+', itr(SOR)='+str(itr_SOR))
+        break
+        
+    correct_u(u, uaux, p)
+    set_bc_u(u)
+    correct_v(v, vaux, p)
+    set_bc_v(v)
+    
+t1=time.time()
+print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
+```
