@@ -4,7 +4,7 @@
 
 
 
-### 2D heat transfer
+### [2D heat transfer (Python sample code)](2d-heat-transfer.md)
 
 1. Governing equations & Boundary conditions
 2. Python sample code
