@@ -31,7 +31,7 @@ dtz2 = dt/dz/dz
 
 全要素の温度T0をTを更新するループ関数の例
 ```Python
-def loop_z(T, T0, Tbc0, Tbc1):
+def loop_z(T, T0):
   for i in range(T0.size):
     if i==0:
       T[i] = 2.0*Tbc0 - T0[i+1]
@@ -47,7 +47,7 @@ def loop_z(T, T0, Tbc0, Tbc1):
 ```
 # time loop
 for itr in range(1,20):
-  loop_z(T, T0, Tbc0, Tbc1)
+  loop_z(T, T0)
   T0 = T.copy();
 # plot 
 plt.plot(zp, T, marker='o');
