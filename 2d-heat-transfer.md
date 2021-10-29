@@ -16,7 +16,7 @@ T = np.zeros([Ny+1, Nx+1]);
 T0[:] = 0.0
 Tbc_w = 1.0;  Tbc_e = 0.0; Tbc_n=0.0; Tbc_s = 0.0; 
 T0[:, 0] = Tbc_w; # left edge
-T0[Nz]= Tbc1; # right edge
+T0[:, Nx]= Tbc_e; # right edge
 ```
 
 次に，平板の微小要素中心の座標とメッシュの座標を定義．
