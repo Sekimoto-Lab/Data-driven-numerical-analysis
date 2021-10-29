@@ -215,9 +215,8 @@ def correct_v(v, vaux, p):
         for ic in range(1, Nx):
             v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
 ```
-
-##　メインの実行
  
+##　メインの実行
 ```Python
 time_ini=time.time()
 ifield=0; 
@@ -254,9 +253,8 @@ for itr in tqdm(range(0,Nt)):
 t1=time.time()
 print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
 ```
-
-##　結果の図示
  
+##　結果の図示
 ```Python
 # interpolate
 uc=0.5*(u[:,:-1]+u[:,1:])/Uref # interpolate at the cell centre with scaling
