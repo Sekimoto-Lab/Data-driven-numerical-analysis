@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt # 図の作成環境のロード
 from matplotlib import cm # カラーマップ
 from tqdm import tqdm # プログレスバーを表示
 import time # 計算時間計測プロファイリング用
+
+from IPython.display import clear_output # 途中結果の図示用
 ```
 
 各種パラメターの設定
