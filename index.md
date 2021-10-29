@@ -1,8 +1,6 @@
 ## Support page for Data-driven numerical analysis & Informational environmental modeling 
 
-### 1D heat transfer
-
-- Python sample code
+### 1D heat transfer (Python sample code)
 
 はじめに，Pythonのはじめのおまじない（数値解析用のnumpyライブラリと図示のためのmatplotlibを使う） 
 ```Python
