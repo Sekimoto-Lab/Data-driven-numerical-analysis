@@ -6,7 +6,7 @@
 ### [2D heat transfer (Python sample code)](2d-heat-transfer.md)
 
 
-### [2D Cavity flow](Cavity.md) 
+### [2D Cavity flow (Python sample code](Cavity.md) 
 
 ---
 ### Markdown
