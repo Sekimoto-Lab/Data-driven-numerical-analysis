@@ -172,5 +172,33 @@ def divergence(div,u,v):
                       )/dt                       
 ```
 
+圧力の更新
+```Python
+def calcP(p,div):
+    err_n=0.0
+    err_d=0.0
+    for jc in range(1,Ny):
+        for ic in range(1,Nx):
+            d_pres = (  dy2*(p[jc, ic-1] + p[jc, ic+1]) \
+                             + dx2*(p[jc-1,ic] + p[jc+1,ic]) \
+                           - (dx2*dy2 * div[jc,ic]) )/((dx2+dy2)*2e0) - p[jc,ic]
+            p[jc,ic] = p[jc,ic] + accel*d_pres
+            err_n = err_n + d_pres*d_pres
+            err_d = err_d + p[jc,ic]*p[jc,ic]
+    set_bc_pressure(p)
+    if err_d < tiny:
+        err_d = 1e0
+    err_r = np.sqrt(err_n/err_d)
+    return err_r
+
+def set_bc_pressure(p):
+    # p[1,1]=0.e0
+    for ic in range(1,Nx):
+        p[0,ic] = p[1,ic]
+        p[Ny,ic]= p[Ny-1,ic]
+    for jc in range(1,Ny):
+        p[jc,0]=p[jc,1]
+        p[jc,Nx]=p[jc,Nx-1]
+```
                  
 
