@@ -54,23 +54,23 @@ yc=np.array(np.zeros(Ny+1),dtype=np.float64)
 # set uniform mesh
 x[0]=-dx
 for i in range(1,Nx+2):
-    x[i]=x[i-1]+dx; # raw grid
-    xc[i-1]=0.5*(x[i-1]+x[i])/Lx # scaled axis of cell centre
+  x[i]=x[i-1]+dx; # raw grid
+  xc[i-1]=0.5*(x[i-1]+x[i])/Lx # scaled axis of cell centre
 
 y[0]=-dy
 for i in range(1,Ny+2):
-    y[i]=y[i-1]+dy; # raw grid 
-    yc[i-1]=0.5*(y[i-1]+y[i])/Lx # scaled axis of cell centre
+  y[i]=y[i-1]+dy; # raw grid 
+  yc[i-1]=0.5*(y[i-1]+y[i])/Lx # scaled axis of cell centre
 
-x2d, y2d = np.meshgrid(x,y)    
+x2d, y2d = np.meshgrid(x,y) # for vector plots
 ```
 
 時間刻みの設定をCFD条件から行う．
 ```Python
 if Uwall != 0.0:
-    Uref = Uwall
+  Uref = Uwall
 else:
-    Uref = nu/Lx
+  Uref = nu/Lx
     
 dt = min(CFL*dx/Uref, CFLv*dx*dx/nu)
 Nt = int(endT*Lx/Uref/dt)
