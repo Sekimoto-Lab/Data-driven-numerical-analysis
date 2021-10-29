@@ -1,6 +1,6 @@
-## Cavity flow by Fractional step method
+# Cavity flow by Fractional step method
 
-### まずは初期設定
+## まずは初期設定
 ```Python
 import numpy as np 
 import matplotlib.pyplot as plt # 図の作成環境のロード
@@ -96,7 +96,7 @@ ur=np.array(np.zeros((Ny, Nx+2),dtype=np.float64))
 vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 ```
 
-### 必要な関数を定義
+## 必要な関数を定義
 x方向の速度の更新用の関数
 ```Python
 def calc_aux_u(uaux,u,v):
@@ -216,7 +216,7 @@ def correct_v(v, vaux, p):
             v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
 ```
 
-#　メインの実行
+##　メインの実行
  
 ```Python
 time_ini=time.time()
