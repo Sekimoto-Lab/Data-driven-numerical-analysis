@@ -79,3 +79,18 @@ dx2=(dx*dx)
 dy2=(dy*dy)
 ```
 
+変数（速度(u,v), 圧力(p))の配列を定義
+```
+# variables 
+u=np.zeros([Ny+1, Nx+2],dtype=np.float64)
+v=np.zeros([Ny+2, Nx+1],dtype=np.float64)
+p=np.zeros([Ny+1, Nx+1],dtype=np.float64)
+
+uaux=np.zeros([Ny+1, Nx+2],dtype=np.float64)
+vaux=np.zeros([Ny+2, Nx+1],dtype=np.float64)
+dive=np.zeros([Ny+1, Nx+1],dtype=np.float64)
+    
+# for plot the velocity on regular grid
+ur=np.array(np.zeros((Ny, Nx+2),dtype=np.float64))
+vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
+```
