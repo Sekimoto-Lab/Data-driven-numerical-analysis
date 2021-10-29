@@ -308,11 +308,25 @@ from numba import double
 from numba import jit 
 ```
 
-def関数の前に @jit を追加して再実行
-
-以下のようにする．
+計算のボトルネックとなっている関数の前に @jit を追加して再実行. 
+例えば，以下のようにする．
 ```
 @jit
-def calc_aux_u(uaux,u,v):
+def calcP(p,div):
+    err_n=0.0
+    err_d=0.0
+    for jc in range(1,Ny):
+        for ic in range(1,Nx):
+            d_pres = (  dy2*(p[jc, ic-1] + p[jc, ic+1]) \
+                             + dx2*(p[jc-1,ic] + p[jc+1,ic]) \
+                           - (dx2*dy2 * div[jc,ic]) )/((dx2+dy2)*2e0) - p[jc,ic]
+            p[jc,ic] = p[jc,ic] + accel*d_pres
+            err_n = err_n + d_pres*d_pres
+            err_d = err_d + p[jc,ic]*p[jc,ic]
+    set_bc_pressure(p)
+    if err_d < tiny:
+        err_d = 1e0
+    err_r = np.sqrt(err_n/err_d)
+    return err_r
 
 ```
