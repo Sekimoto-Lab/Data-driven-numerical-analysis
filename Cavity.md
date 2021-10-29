@@ -97,5 +97,33 @@ vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 
 x方向の速度の更新用の関数
 ```
+def calc_aux_u(uaux,u,v):
+    for jc in range(1, Ny):
+        for i in range(1, Nx+1):
+            visc = (u[jc, i-1]-2e0*u[jc,i]+u[jc, i+1])/dx2 \
+                    +(u[jc-1, i]-2e0*u[jc,i]+u[jc+1, i])/dy2
+            conv = (+( ( u[jc, i-1] + u[jc, i])/2e0 \
+                              *(-u[jc, i-1]+u[jc, i])/dx ) \
+                          +( ( u[jc, i]+u[jc, i+1])/2e0 \
+                              *(-u[jc, i]+u[jc, i+1])/dx ) \
+                         )/2e0 \
+                        +(+( ( v[jc, i-1]+v[jc, i])/2e0 \
+                               *(-u[jc-1,i]+u[jc, i])/dy ) \
+                            +( ( v[jc+1, i-1] + v[jc+1,i])/2e0 \
+                               *(-u[jc,i]+u[jc+1,i])/dy ) \
+                         )/2e0
+            uaux[jc,i] = u[jc,i] + dt*(-conv + nu*visc)
+    
+def set_bc_u(u):
+    # left and right walls 
+    for jc in range(0,Ny+1): 
+        u[jc,1] =0.e0; 
+        u[jc,Nx]=0.e0
+        u[jc,0] = -u[jc,2] # left imaginary cell (for visualization)
+        u[jc,Nx+1] = -u[jc,Nx-1] # right imaginary cell (for visualization)
 
+    # bottom and top walls (embedded)
+    for i in range(0,Nx+2):
+        u[0,i] = -u[1,i]  # bottom wall (uc=0)
+        u[Ny,i] = -u[Ny-1,i]+2.e0*Uwall # moving wall (uc=Uwall)
 ```
