@@ -44,7 +44,8 @@ def loop_z(T, T0, Tbc0, Tbc1):
   return
 ```
 
-計算実行(20ステップの例)
+計算実行(20ステップの例) 
+配列のコピーにはcopy() を使う． copyのあとのかっこ()を忘れないように!
 ```
 # time loop
 for itr in range(1,20):
