@@ -311,7 +311,7 @@ from numba import jit
 
 計算のボトルネックとなっている関数の前に @jit を追加して再実行. 
 例えば，以下のようにする．
-```
+```Python
 @jit
 def calcP(p,div):
     err_n=0.0
