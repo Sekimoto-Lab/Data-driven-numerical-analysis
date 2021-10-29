@@ -221,8 +221,9 @@ def correct_v(v, vaux, p):
 ```
  
 ---
+
+## ここからがメインの実行 (100 stepごとに図示)
  
-##　ここからがメインの実行 (100 stepごとに図示)
 ```Python
 time_ini=time.time()
 ifield=0; 
@@ -260,13 +261,14 @@ for itr in tqdm(range(0,Nt)):
         clear_output(True)
         fig, ax = plt.subplots()
         tcf = ax.contourf(xc, yc, p)
-        #tcf = ax.contourf(xc, yc, dive)
+        #tcf = ax.contourf(xc, yc, dive) # 連続の式を満足しているかチェック
         fig.colorbar(tcf)
         # rough interpolation of velocities
         uc=0.5*(u[:,:-1]+u[:,1:])/Uref # interpolate at the regular grid with scaling
         vc=0.5*(v[:-1,:]+v[1:,:])/Uref # interpolate at the regular grid with scaling
         ax.streamplot(xc,yc,uc,vc,color='w',density=1,integration_direction='backward',arrowstyle="->")
         ax.set_aspect('equal')
+        ax.set_title("$Re$={0:.2f}".format(Uwall*Ly/nu)+", $t$={0:.3f}".format(itr*dt),fontsize=20)
         plt.xlim(0, 1); plt.ylim(0, 1);
         plt.show()
 
@@ -274,15 +276,12 @@ t1=time.time()
 print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
 ```
 
-##　結果の図示
+## 結果の図示
 ```Python
 # interpolate
 uc=0.5*(u[:,:-1]+u[:,1:])/Uref # interpolate at the cell centre with scaling
 vc=0.5*(v[:-1,:]+v[:1,:])/Uref # interpolate at the cell centre with scaling
 
-# Controlling the starting points of the streamlines
-#seed_points = np.array([x2d[::4,::4].reshape(121), y2d[::4,::4].reshape(121)])
-# 結果の図示
 # plot streamlines and pressure field
 fig, ax = plt.subplots()
 tcf = ax.contourf(xc, yc, p)
@@ -299,4 +298,21 @@ ax.set_aspect('equal')
 plt.tight_layout()
 
 plt.show()
+```
+
+## Nambaライブラリで高速化 (計算が正しく動くことを確認してから使うこと) 
+ライブラリをはじめにimport
+```Python
+# numbaで高速化
+from numba import double
+from numba import jit 
+```
+
+def関数の前に @jit を追加して再実行
+
+以下のようにする．
+```
+@jit
+def calc_aux_u(uaux,u,v):
+
 ```
