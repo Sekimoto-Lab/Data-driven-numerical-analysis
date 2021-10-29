@@ -220,7 +220,7 @@ def correct_v(v, vaux, p):
  
 ---
  
-##　ここからがメインの実行
+##　ここからがメインの実行 (100 stepごとに図示)
 ```Python
 time_ini=time.time()
 ifield=0; 
@@ -253,7 +253,21 @@ for itr in tqdm(range(0,Nt)):
     set_bc_u(u)
     correct_v(v, vaux, p)
     set_bc_v(v)
-    
+
+    if np.mod(itr,100)==0:
+        clear_output(True)
+        fig, ax = plt.subplots()
+        tcf = ax.contourf(xc, yc, p)
+        #tcf = ax.contourf(xc, yc, dive)
+        fig.colorbar(tcf)
+        # rough interpolation of velocities
+        uc=0.5*(u[:,:-1]+u[:,1:])/Uref # interpolate at the regular grid with scaling
+        vc=0.5*(v[:-1,:]+v[1:,:])/Uref # interpolate at the regular grid with scaling
+        ax.streamplot(xc,yc,uc,vc,color='w',density=1,integration_direction='backward',arrowstyle="->")
+        ax.set_aspect('equal')
+        plt.xlim(0, 1); plt.ylim(0, 1);
+        plt.show()
+
 t1=time.time()
 print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
 ```
