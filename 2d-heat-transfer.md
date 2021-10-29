@@ -35,7 +35,7 @@ dty2 = dt/dy/dy
 ```
 
 全要素の温度T0をTを更新するループ関数の例
-```
+```Python
 def update_T(T,T0):
   for j in range(Ny+1): # y-loop
     for i in range(Nx+1): # x-loop
@@ -53,7 +53,7 @@ def update_T(T,T0):
 ```
 
 計算実行(100ステップの例)
-```
+```Python
 for itr in range(100): # time looping
   update_T(T,T0)
   T0 = T.copy(); # 更新したTをT0に格納してから，次の時間反復へ 
