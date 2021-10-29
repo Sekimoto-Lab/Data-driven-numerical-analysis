@@ -4,8 +4,8 @@
 
 1. Governing equations & Boundary conditions
 2. Python sample code
-
-```python
+ 
+```Python:heat_transfer_1d
 import numpy as np 
 import matplotlib.pyplot as plt 
 
