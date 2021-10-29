@@ -62,5 +62,6 @@ for itr in range(100): # time looping
 # plot 
 plt.contourf(xp, yp, T0, 20, cmap='viridis', vmin=0.0, vmax=1.0);
 #plt.colorbar(vmin=0, vmax=1.0)
+plt.axis('square') # axis square
 plt.xlim([0, Lx]); plt.ylim([0, Ly]); plt.show();
 ```
