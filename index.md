@@ -2,7 +2,7 @@
 
 ### 1D heat transfer (Python sample code)
 
-はじめに，Pythonのはじめのおまじない（数値解析用のnumpyライブラリと図示のためのmatplotlibを使う） 
+はじめに，Pythonのおまじない（数値解析用のnumpyライブラリと図示のためのmatplotlibを使う） 
 ```Python
 import numpy as np 
 import matplotlib.pyplot as plt 
@@ -25,13 +25,13 @@ L=1.0;
 dz = L/Nz; z = np.linspace(0.0, L, Nz); zp= np.linspace(-0.5*dz, L+0.5*dz, Nz+1)
 ```
 
-時間刻みを設定（安定条件に注意)
+また，時間刻みを設定（安定条件に注意)
 ```Python
 dt=0.001; # set from dt/(dz*dz) < 1/2
 dtz2 = dt/dz/dz
 ```
 
-全要素を更新しするループ関数の例
+全要素の温度T0をTを更新するループ関数の例
 ```Python
 def loop_z(T, T0, Tbc0, Tbc1):
   for i in range(T0.size):
@@ -45,7 +45,7 @@ def loop_z(T, T0, Tbc0, Tbc1):
 ```
 
 計算実行(20ステップの例) 
-配列のコピーにはcopy() を使う． copyのあとのかっこ()を忘れないように!
+配列のコピーにはcopy()を使う． copyのあとのかっこ()を忘れないように!
 ```
 # time loop
 for itr in range(1,20):
@@ -89,9 +89,6 @@ Syntax highlighted code block
 [Link](url) and ![Image](src)
 ```
 
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Sekimoto-Lab/Data-driven-numerical-analysis/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
+### Contact
 
 [Atsushi Sekimoto Lab. Homepage](https://sites.google.com/view/sekimoto-lab/lectures/%E3%83%87%E3%83%BC%E3%82%BF%E9%A7%86%E5%8B%95%E5%9E%8B%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97-data-driven-numerical-analysis)
