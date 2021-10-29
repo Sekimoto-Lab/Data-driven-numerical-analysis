@@ -169,7 +169,8 @@ def divergence(div,u,v):
         for ic in range(1,Nx):
             div[jc,ic] = ( (-u[jc,ic] + u[jc, ic+1])/dx \
                        +(-v[jc,ic] + v[jc+1, ic])/dy \
+                      )/dt                       
 ```
 
                  
-                      )/dt
+
