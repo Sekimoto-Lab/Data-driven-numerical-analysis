@@ -38,3 +38,44 @@ err_tol = 1.e-6
 tiny = 1.e-20
 ```
 
+メッシュと座標の設定
+```Python
+# set grid 
+dx=Lx/np.float64(Nx-1)
+dy=Ly/np.float64(Ny-1)
+
+# mesh information (grid)
+x=np.array(np.zeros(Nx+2),dtype=np.float64)
+y=np.array(np.zeros(Ny+2),dtype=np.float64)
+# cell centre position
+xc=np.array(np.zeros(Nx+1),dtype=np.float64)
+yc=np.array(np.zeros(Ny+1),dtype=np.float64)
+
+# set uniform mesh
+x[0]=-dx
+for i in range(1,Nx+2):
+    x[i]=x[i-1]+dx; # raw grid
+    xc[i-1]=0.5*(x[i-1]+x[i])/Lx # scaled axis of cell centre
+
+y[0]=-dy
+for i in range(1,Ny+2):
+    y[i]=y[i-1]+dy; # raw grid 
+    yc[i-1]=0.5*(y[i-1]+y[i])/Lx # scaled axis of cell centre
+
+x2d, y2d = np.meshgrid(x,y)    
+```
+
+時間刻みの設定をCFD条件から行う．
+```Python
+if Uwall != 0.0:
+    Uref = Uwall
+else:
+    Uref = nu/Lx
+    
+dt = min(CFL*dx/Uref, CFLv*dx*dx/nu)
+Nt = int(endT*Lx/Uref/dt)
+
+dx2=(dx*dx) 
+dy2=(dy*dy)
+```
+
