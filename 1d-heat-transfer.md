@@ -1,3 +1,5 @@
+# 1D heat transfer (Python sample code)
+
 はじめに，Pythonのおまじない（数値解析用のnumpyライブラリと図示のためのmatplotlibを使う） 
 ```Python
 import numpy as np 
