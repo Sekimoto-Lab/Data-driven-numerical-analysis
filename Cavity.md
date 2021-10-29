@@ -162,7 +162,7 @@ def set_bc_v(v):
         #v[Ny+1,ic] = -v[Ny-1,ic]
 ```
 
-発散の計算
+発散の計算の関数
 ```Python
 def divergence(div,u,v):
     for jc in range(1,Ny):
@@ -172,7 +172,7 @@ def divergence(div,u,v):
                       )/dt                       
 ```
 
-圧力の更新
+圧力の更新用の関数
 ```Python
 def calcP(p,div):
     err_n=0.0
@@ -200,5 +200,17 @@ def set_bc_pressure(p):
         p[jc,0]=p[jc,1]
         p[jc,Nx]=p[jc,Nx-1]
 ```
-                 
+
+速度(u,v)の修正用の関数
+```Python
+def correct_u(u, uaux, p):
+    for jc in range(1, Ny):
+        for i in range(1, Nx+1):
+            u[jc, i] = uaux[jc, i] - dt*(-p[jc, i-1] + p[jc, i])/dx
+
+def correct_v(v, vaux, p):
+    for j in range(1, Ny+1):
+        for ic in range(1, Nx):
+            v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
+```
 
