@@ -1,6 +1,7 @@
 # Cavity flow by Fractional step method
 
 ## まずは初期設定
+
 ```Python
 import numpy as np 
 import matplotlib.pyplot as plt # 図の作成環境のロード
@@ -97,6 +98,7 @@ vr=np.array(np.zeros((Ny+2, Nx),dtype=np.float64))
 ```
 
 ## 必要な関数を定義
+
 x方向の速度の更新用の関数
 ```Python
 def calc_aux_u(uaux,u,v):
@@ -216,7 +218,9 @@ def correct_v(v, vaux, p):
             v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
 ```
  
-##　メインの実行
+---
+ 
+##　ここからがメインの実行
 ```Python
 time_ini=time.time()
 ifield=0; 
@@ -253,7 +257,7 @@ for itr in tqdm(range(0,Nt)):
 t1=time.time()
 print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
 ```
- 
+
 ##　結果の図示
 ```Python
 # interpolate
