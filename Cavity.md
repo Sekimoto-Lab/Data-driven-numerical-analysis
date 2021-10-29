@@ -216,7 +216,8 @@ def correct_v(v, vaux, p):
             v[j, ic] = vaux[j, ic] - dt*(-p[j-1, ic] + p[j, ic])/dy
 ```
 
-##　個々からメインの実行
+#　メインの実行
+ 
 ```Python
 time_ini=time.time()
 ifield=0; 
@@ -252,4 +253,35 @@ for itr in tqdm(range(0,Nt)):
     
 t1=time.time()
 print(' nstep = '+str(itr) + ': time elapsed = '+str(t1-time_ini)+' sec.')    
+```
+
+##　結果の図示
+ 
+```Python
+# interpolate
+uc=0.5*(u[:,:-1]+u[:,1:])/Uref # interpolate at the cell centre with scaling
+vc=0.5*(v[:-1,:]+v[:1,:])/Uref # interpolate at the cell centre with scaling
+
+# Controlling the starting points of the streamlines
+#seed_points = np.array([x2d[::4,::4].reshape(121), y2d[::4,::4].reshape(121)])
+# 結果の図示
+# plot streamlines and pressure field
+fig, ax = plt.subplots()
+tcf = ax.contourf(xc, yc, p)
+fig.colorbar(tcf)
+
+#ax.streamplot(x2d,y2d,ur,vr,color='w',integration_direction='both',arrowsize=1.5,arrowstyle="->",
+#               minlength=0.2,maxlength=0.8,start_points=seed_points.T)
+
+ax.streamplot(xc,yc,uc,vc,color='w',density=1,integration_direction='backward',arrowstyle="->")
+ax.set_aspect('equal')
+plt.xlim(0, 1); plt.ylim(0, 1)
+ax.set_title("$Re$={0:.2f}".format(Uwall*Ly/nu)+", $t$={0:.3f}".format(itr*dt),fontsize=20)
+ax.set_xlabel('$x^*$',fontsize=24)
+ax.set_ylabel("$y^*$",fontsize=24)
+ax.tick_params(labelsize=20)
+ax.set_aspect('equal')
+plt.tight_layout()
+
+plt.show()
 ```
