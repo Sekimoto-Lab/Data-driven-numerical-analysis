@@ -223,7 +223,7 @@ time_ini=time.time()
 ifield=0; 
 for itr in tqdm(range(0,Nt)):
     t0=time.time()
-    calc_aux_u(uaux, u, v) # fixed 2021/07/10
+    calc_aux_u(uaux, u, v)
     set_bc_u(uaux)
     calc_aux_v(vaux, u, v)
     set_bc_v(vaux)
@@ -269,9 +269,6 @@ vc=0.5*(v[:-1,:]+v[:1,:])/Uref # interpolate at the cell centre with scaling
 fig, ax = plt.subplots()
 tcf = ax.contourf(xc, yc, p)
 fig.colorbar(tcf)
-
-#ax.streamplot(x2d,y2d,ur,vr,color='w',integration_direction='both',arrowsize=1.5,arrowstyle="->",
-#               minlength=0.2,maxlength=0.8,start_points=seed_points.T)
 
 ax.streamplot(xc,yc,uc,vc,color='w',density=1,integration_direction='backward',arrowstyle="->")
 ax.set_aspect('equal')
