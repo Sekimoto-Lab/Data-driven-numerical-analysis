@@ -9,7 +9,7 @@ itemp = 1
 if itemp==1:
     Tbc_H = 1.0 # 左壁面の温度
     Tbc_L = 0.0 # 右壁面の温度
-    #Tref=Tbc_H - Tbc_L # the code assume that Tref=1.0 
+    #Tref=Tbc_H - Tbc_L # the code assumes that Tref=1.0 
     kappa=1.e-6
     gbeta =1.e-3 # gravity coeff, thermal expansion rate
 ```
@@ -35,6 +35,13 @@ else:
 dt = min(CFL*dx/Uref, CFLv*dx*dx/nu)
 if itemp==1:
     dt = min(dt, CFLk*dx*dx/kappa, CFL*dy/np.sqrt(gbeta*Lx)) # Lx is added, 2021/07/09
+```
+
+変数variablesに温度関連の配列を追加．
+```Python 
+if itemp==1:
+    T   =np.zeros([Ny+1, Nx+1],dtype=np.float64)
+    Taux=np.zeros([Ny+1, Nx+1],dtype=np.float64)
 ```
 
 温度に関する関数(calc_temp, set_bc_temp, add_grav)を追加． 重力はy方向のみ考慮．
