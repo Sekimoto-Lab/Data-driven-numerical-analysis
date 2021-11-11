@@ -14,10 +14,25 @@ if itemp==1:
     gbeta =1.e-3 # gravity coeff, thermal expansion rate
 ```
 
+高Pr流体の場合は熱伝導支配となるので，それに備える．
 ```Python
 # for dt
 CFL=0.5
 CFLv=0.8
 if itemp==1:
     CFLk=CFLv
+```
+
+代表速度については，上壁面の速度とする．動かない場合は自然対流(重力)による代表速度を考える．
+```Python
+if Uwall != 0.0:
+    Uref = Uwall
+elif gbeta != 0.0:
+    Uref = np.sqrt(gbeta*Lx) 
+else:
+    Uref = nu/Lx
+    
+dt = min(CFL*dx/Uref, CFLv*dx*dx/nu)
+if itemp==1:
+    dt = min(dt, CFLk*dx*dx/kappa, CFL*dy/np.sqrt(gbeta*Lx)) # Lx is added, 2021/07/09
 ```
