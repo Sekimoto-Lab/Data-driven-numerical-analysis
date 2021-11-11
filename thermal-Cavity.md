@@ -3,7 +3,7 @@
 2D Cavity Flow のプログラムにエネルギー方程式を追加する.
 
 追加パラメターとして Fluid property に以下を追加．
-```
+```Python
 # thermal property 
 itemp = 1
 if itemp==1:
@@ -14,7 +14,7 @@ if itemp==1:
     gbeta =1.e-3 # gravity coeff, thermal expansion rate
 ```
 
-```
+```Python
 # for dt
 CFL=0.5
 CFLv=0.8
