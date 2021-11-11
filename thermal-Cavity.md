@@ -3,6 +3,7 @@
 2D Cavity Flow のプログラムにエネルギー方程式を追加する.
 
 追加パラメターとして Fluid property に以下を追加．
+(itempというスイッチングフラグを立てて，エネルギー方程式を解くかどうかを切り替えるコーディングスタイルとした．）
 ```Python
 # thermal property 
 itemp = 1
@@ -58,6 +59,7 @@ def calc_temp(T,Taux,u,v):
                                  +(v[jc+1,ic]*(-T[jc,ic]+T[jc+1,ic])/dy ) \
                                 )/2e0
             T[jc][ic]= Taux[jc][ic] -dt*(tconv_x + tconv_y) + dt*kappa*tdiff 
+# ---------------------------------------------- #
 def set_bc_temp(T, Tbc_H, Tbc_L):
     for jc in range(1, Ny):
         T[jc, 0] = 2.0*Tbc_H - T[jc, 1]     # left imaginary cell
@@ -74,3 +76,5 @@ def add_grav(vaux,T):
         for ic in range(1, Nx):
             vaux[j, ic] = vaux[j, ic] + dt*gbeta*((T[j,ic] + T[j+1,ic])/2.0 )
 ```
+ 
+## 以上で部品は揃ったので， メインループ内部の改造は各自で演習．
