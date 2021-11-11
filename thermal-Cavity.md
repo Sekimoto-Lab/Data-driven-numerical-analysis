@@ -60,17 +60,17 @@ def calc_temp(T,Taux,u,v):
             T[jc][ic]= Taux[jc][ic] -dt*(tconv_x + tconv_y) + dt*kappa*tdiff 
 def set_bc_temp(T, Tbc_H, Tbc_L):
     for jc in range(1, Ny):
-        T[jc, 0] = 2.0*Tbc_H - T[jc, 1]         # left imaginary cell
+        T[jc, 0] = 2.0*Tbc_H - T[jc, 1]     # left imaginary cell
         T[jc, Nx] = 2.0*Tbc_L - T[jc, Nx-1] # right imaginary cell
 
     # bottom and top walls
     for ic in range(1, Nx):
-        T[0, ic] = T[1, ic]         # bottom wall, adiabatic 
+        T[0, ic] = T[1, ic]     # bottom wall, adiabatic 
         T[Ny, ic] = T[Ny-1, ic] # moving wall, adiabatic
 # ---------------------------------------------- #
-# 重力はy方向のみ考慮．
+# Buoyancy force (Boussinesq approximation) in y
 def add_grav(vaux,T):
     for j in range(1, Ny):
         for ic in range(1, Nx):
-            vaux[j, ic] =   vaux[j, ic] + dt*gbeta*((T[j,ic] + T[j+1,ic])/2.0 )
+            vaux[j, ic] = vaux[j, ic] + dt*gbeta*((T[j,ic] + T[j+1,ic])/2.0 )
 ```
