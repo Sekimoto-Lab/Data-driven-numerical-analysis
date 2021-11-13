@@ -8,7 +8,7 @@
 
 ### [2D Cavity flow (Python sample code)](Cavity.md) 
 
-### [2D thermal cavity flow](thermal-Cavity.md)
+### [2D thermal Cavity flow](thermal-Cavity.md)
 
 ---
 ### Markdown
