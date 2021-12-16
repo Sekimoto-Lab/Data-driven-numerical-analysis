@@ -10,7 +10,7 @@ import os
 os.chdir('/content/drive/MyDrive/Colab Notebooks/')
 os.getcwd()
 ```
-- MINISTデータを保存するフォルダを ./data/minist とする．
+- MINISTデータを保存するフォルダを ./data/minist とする． notebook環境からターミナルコマンドを実行するには，エクスクラメーションマーク（!）をつける (mkdir はフォルダを作成するコマンド), フォルダの作成はWindowsエクスプローラーなどで作成しても良い． 
 ```Python
 !mkdir data
 !mkdir data/mnist
