@@ -31,7 +31,7 @@ import tflearn.datasets.mnist as mnist
 trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True)
 ```
 
-- どのようなデータかを確認しておく (one-hot形式) 
+- どのようなデータかを確認しておく (trainが学習用データ，testが検証用データ． Xが画像データ,　Yが正解ラベル(one-hot形式.) 
 ```
 plt.imshow(testX[1].reshape(28,28), cmap=cm.gray, interpolation='nearest')
 plt.show()
