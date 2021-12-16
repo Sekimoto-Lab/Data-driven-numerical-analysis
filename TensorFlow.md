@@ -37,7 +37,7 @@ plt.imshow(testX[1].reshape(28,28), cmap=cm.gray, interpolation='nearest')
 plt.show()
 ```
 
-## ここからTensorflow を用いて, DNNの作成
+## DNNの作成
 ```Python
 import tensorflow as tf
 
@@ -46,8 +46,7 @@ tf.compat.v1.reset_default_graph()
 
 # input layer
 net = tflearn.input_data(shape=[None,784])
-```
-```Python
+
 # hidden layer 
 net = tflearn.fully_connected(net, 128, activation='relu')
 net = tflearn.dropout(net, 0.5) # 50 % を残す
@@ -58,3 +57,25 @@ net = tflearn.fully_connected(net, 10, activation='softmax') # return 0--1 proba
 net = tflearn.regression(net, optimizer='adam', loss='categorical_crossentropy')
 ```
 
+## 学習モデルの作成
+```Python
+# training 
+model = tflearn.DNN(net)
+model.fit(trainX,trainY, n_epoch = 20, batch_size=100, validation_set=0.1, show_metric=True)
+```
+
+## 予測モデルの結果を確認(testXが画像データ, predが予測結果)
+```Python
+# prediction
+pred = np.array(model.predict(testX)).argmax(axis=1)
+print(pred)
+```
+- 全データでモデルの精度をチェック (testYがone-hot形式なので， 正解の数字(label)に変換)
+```Python
+label = testY.argmax(axis=1)
+print(testY.shape)
+print(label)
+
+accuracy = np.mean(pred==label, axis=0)
+print(accuracy)
+```
