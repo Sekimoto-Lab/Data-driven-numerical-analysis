@@ -72,8 +72,8 @@ print(pred)
 ```
 - 全データでモデルの精度をチェック (testYがone-hot形式なので， 正解の数字(label)に変換)
 ```Python
-label = testY.argmax(axis=1)
 print(testY.shape)
+label = testY.argmax(axis=1)
 print(label)
 
 accuracy = np.mean(pred==label, axis=0)
