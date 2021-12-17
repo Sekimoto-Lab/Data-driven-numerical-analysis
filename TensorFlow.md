@@ -1,4 +1,4 @@
-# TensorFlow sample: Deep neural network for MNIST (TensorFlow v1 compatible を利用．) 
+# TensorFlow sample: Deep neural network for MNIST (TensorFlow v1 compatible を利用) 
 MNISTサンプル画像データを使った文字認識のDNNプログラムを作成する演習．
 
 - はじめに， Pythonのおまじない
