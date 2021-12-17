@@ -1,4 +1,4 @@
-# TensorFlow sample DNN for MNIST (TensorFlow v1 compatible を利用．) 
+# TensorFlow sample: Neural network for MNIST (TensorFlow v1 compatible を利用．) 
 MNISTサンプル画像データを使った文字認識のDNNプログラムを作成する演習．
 
 - はじめに， Pythonのおまじない
@@ -37,7 +37,7 @@ plt.imshow(testX[1].reshape(28,28), cmap=cm.gray, interpolation='nearest')
 plt.show()
 ```
 
-## DNNの作成
+## ニューラルネットワーク(NN)の作成
 ```Python
 import tensorflow as tf
 
