@@ -80,5 +80,5 @@ accuracy = np.mean(pred==label, axis=0)
 print(accuracy)
 ```
 
-(参考)
+(参考) 
 「初めてのTensorFlow」 足立悠 著 (リックテレコム)
