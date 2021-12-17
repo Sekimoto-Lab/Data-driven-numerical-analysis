@@ -11,11 +11,10 @@
 ### [2D thermal Cavity flow](thermal-Cavity.md)
 
 --- 
-- Machine Learning
 ### [A sample neural network (TensorFlow)](TensorFlow.md)
 
 ---
-### Markdown
+### Markdown 記法について
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
