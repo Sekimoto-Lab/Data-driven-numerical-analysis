@@ -11,7 +11,7 @@
 ### [2D thermal Cavity flow](thermal-Cavity.md)
 
 --- 
-### [A sample deep neural network (TensorFlow)](TensorFlow.md)
+### [A sample deep neural network (TensorFlow)](TensorFlow_DNN.md)
 
 ### [A sample convolutional neural network (TensorFlow)](TensorFlow_CNN.md)
 
