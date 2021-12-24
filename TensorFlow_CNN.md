@@ -3,19 +3,6 @@ MNISTサンプル画像データを使った文字認識のCNNプログラムを
 
 - はじめに， Pythonのおまじない
 ```Python
-import tensorflow as tf
-import tflearn 
-
-# CNN 用のライブラリ
-from tflearn.layers.core import input_data, dropout, fully_connected
-from tflearn.layers.conv import conv_2d, max_pool_2d
-from tflearn.layers.normalization import local_response_normalization
-from tflearn.layers.estimator import regression
-
-# MNIST data setを扱うためのライブラリ 
-# tflearnのインストールが必要 (!pip install tflearn)
-import tflearn.datasets.mnist as mnist
-
 # 画像のプロット用
 from matplotlib import pyplot as plt
 from matplotlib import cm
@@ -28,6 +15,11 @@ import numpy as np
 
 - MINISTのデータをロードする． (初めての場合は，自動的にデータがダウンロードされる．)
 ```Python
+# MNIST data setを扱うためのライブラリ 
+# tflearnのインストールが必要 (!pip install tflearn)
+!pip install tflearn
+import tflearn 
+import tflearn.datasets.mnist as mnist
 # download MNIST data and load
 trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True) 
 ```
@@ -36,6 +28,19 @@ trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True)
 ```Python
 trainX = trainX.reshape([-1, 28, 28, 1])  # -1でその要素は良きに計らう．
 testX = testX.reshape([-1, 28, 28, 1])
+```
+
+
+# TensorFlowのライブラリをインポート
+```Python
+import tensorflow as tf
+
+# CNN 用のライブラリ
+from tflearn.layers.core import input_data, dropout, fully_connected
+from tflearn.layers.conv import conv_2d, max_pool_2d
+from tflearn.layers.normalization import local_response_normalization
+from tflearn.layers.estimator import regression
+
 ```
 
 # 畳み込みニューラルネットワークの作成
