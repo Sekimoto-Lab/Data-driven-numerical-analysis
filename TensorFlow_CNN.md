@@ -31,14 +31,13 @@ import numpy as np
 trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True) 
 ```
 
-- データの成形
-# データを2次元に変換
+- データを2次元に変換
 ```Python
 trainX = trainX.reshape([-1, 28, 28, 1])  # -1でその要素は良きに計らう．
 testX = testX.reshape([-1, 28, 28, 1])
 ```
 
-- 畳み込みニューラルネットワークの作成
+# 畳み込みニューラルネットワークの作成
 ```Python
 # construction of CNN
 # initialization
@@ -73,9 +72,27 @@ net = tflearn.regression(net, optimizer='sgd', learning_rate=0.5, loss='categori
 # momentum, adam 
 ```
 
-- 学習
+# 学習の実行
 ```Python 
 # learning 
 model = tflearn.DNN(net)
 model.fit(trainX, trainY, n_epoch=20, batch_size=100, validation_set=0.1, show_metric=True)
 ```
+
+- testデータを判別
+```Python
+# prediction
+pred = np.array(model.predict(testX)).argmax(axis=1)
+print(pred)
+
+# check the answer
+label = testY.argmax(axis=1)
+print(label)
+```
+
+- 全体の精度を確認
+```Python
+accuracy = np.mean(pred == label, axis=0)
+print(accuracy)
+```
+
