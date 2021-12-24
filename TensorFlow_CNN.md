@@ -79,6 +79,7 @@ model = tflearn.DNN(net)
 model.fit(trainX, trainY, n_epoch=20, batch_size=100, validation_set=0.1, show_metric=True)
 ```
 
+# 結果のチェック
 - testデータを判別
 ```Python
 # prediction
