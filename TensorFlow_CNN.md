@@ -10,7 +10,7 @@ import numpy as np
 ```
 
 - MINISTデータのダウンロード先のフォルダを作成しておく. Colaboratory を使う場合, 以下のようにGoogle　Driveのアカウント上のドライブをマウントして使う. 
-[A sample deep neural network (TensorFlow)](TensorFlow.md) 参照
+[A sample deep neural network (TensorFlow)](TensorFlow_DNN.md) 参照
 
 
 - MINISTのデータをロードする． (初めての場合は，自動的にデータがダウンロードされる．)
