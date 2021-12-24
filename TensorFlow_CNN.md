@@ -22,10 +22,60 @@ import numpy as np
 ```
 
 - MINISTデータのダウンロード先のフォルダを作成しておく. Colaboratory を使う場合, 以下のようにGoogle　Driveのアカウント上のドライブをマウントして使う. 
+[A sample deep neural network (TensorFlow)](TensorFlow.md) 参照
 
 
 - MINISTのデータをロードする． (初めての場合は，自動的にデータがダウンロードされる．)
 ```Python
 # download MNIST data and load
 trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True) 
+```
+
+- データの成形
+# データを2次元に変換
+```Python
+trainX = trainX.reshape([-1, 28, 28, 1])  # -1でその要素は良きに計らう．
+testX = testX.reshape([-1, 28, 28, 1])
+```
+
+- 畳み込みニューラルネットワークの作成
+```Python
+# construction of CNN
+# initialization
+tf.compat.v1.reset_default_graph()
+
+# input layer
+net = input_data(shape=[None, 28, 28, 1]) # grayscale data なので 1, カラーならば ..., 
+##net = input_data(shape=[None, 784]) # grayscale data なので 1, カラーならば ..., 
+```
+
+```Python
+# hidden layer (中間層) = convolution + ReLU + pooling
+# convolution sublayer
+net = conv_2d(net, 32, 5, activation='relu') # 32ノード # 5 フィルターサイズ (5x5), サイズが変わらないようにゼロパディングが暗になされる
+# pooling
+net = max_pool_2d(net, 2) # 2x2 の中の最大値をとる
+
+# 2nd layer
+net = conv_2d(net, 64, 5, activation='relu')
+net = max_pool_2d(net, 2)
+
+# 全結合層
+net = fully_connected(net, 64, activation='relu')
+net = dropout(net, 0.5) # けっこう重要
+```
+
+```Python
+# output layer 
+net = tflearn.fully_connected(net, 10, activation='softmax')
+net = tflearn.regression(net, optimizer='sgd', learning_rate=0.5, loss='categorical_crossentropy') 
+#net = tflearn.regression(net, optimizer='adam', loss='categorical_crossentropy') 
+# momentum, adam 
+```
+
+- 学習
+```Python 
+# learning 
+model = tflearn.DNN(net)
+model.fit(trainX, trainY, n_epoch=20, batch_size=100, validation_set=0.1, show_metric=True)
 ```
