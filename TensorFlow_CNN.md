@@ -46,7 +46,6 @@ tf.compat.v1.reset_default_graph()
 
 # input layer
 net = input_data(shape=[None, 28, 28, 1]) # grayscale data なので 1, カラーならば ..., 
-##net = input_data(shape=[None, 784]) # grayscale data なので 1, カラーならば ..., 
 ```
 
 ```Python
