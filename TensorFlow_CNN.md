@@ -13,6 +13,7 @@ from tflearn.layers.normalization import local_response_normalization
 from tflearn.layers.estimator import regression
 
 # MNIST data setを扱うためのライブラリ 
+# tflearnのインストールが必要 (!pip install tflearn)
 import tflearn.datasets.mnist as mnist
 
 # 画像のプロット用
