@@ -24,7 +24,7 @@ import tflearn.datasets.mnist as mnist
 trainX, trainY, testX, testY = mnist.load_data('./data/mnist',one_hot=True) 
 ```
 
-- データを2次元に変換
+- データを2次元(28×28ピクセル)に変換
 ```Python
 trainX = trainX.reshape([-1, 28, 28, 1])  # -1でその要素は良きに計らう．
 testX = testX.reshape([-1, 28, 28, 1])
