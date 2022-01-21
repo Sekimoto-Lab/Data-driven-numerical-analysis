@@ -1,19 +1,20 @@
 # Lorentz model by RK method (学生作品①)
 
-
+### ライブラリのインポートのおまじない
 ```Python
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 ```
-## 初期値の設定
+### 初期値の設定
 ```Python
 dt = 0.01
 t_0 = 0
 t_1 = 50
 X_0 = np.array([1, 1, 1])
 ```
-## ルンゲ・クッタ法で時間発展させる関数の設定
+
+### ルンゲ・クッタ法で時間発展させる関数の設定
 ```Python
 def RungeKutta(x0, y0, z0, t, X):
   k_1 = LorenzEquation(x0, y0, z0, t, X)
@@ -43,13 +44,13 @@ def Lorenz(x0, y0, z0):
         
     return data
 ```
-## 実行
+
+### 実行
 ```python
 [X,Y,Z]=Lorenz(10, 8/3, 33.5)
 ```
 
-## 図のプロット
-        
+### 図のプロット        
 ```python
 [X,Y,Z]=Lorenz(10, 8/3, 33.5)
 
@@ -58,3 +59,15 @@ ax = Axes3D(fig)
 ax.plot(X, Y, Z)
 plt.show()
 ```
+
+# batched Lorentz model (学生作品②， アダムス・バッシュホース法)
+
+### おまじない
+```Python
+import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+```
+
+
+
