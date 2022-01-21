@@ -1,4 +1,5 @@
 # Lorentz model by RK method (学生作品①)
+(参考にしたWebページ) https://hoshimureinforcement.hatenablog.com/entry/2017/08/01/074344
 
 ### ライブラリのインポートのおまじない
 ```Python
