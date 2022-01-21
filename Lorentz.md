@@ -69,21 +69,109 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 ```
 
+### Lorenzクラスを作成
+```Python
+class Lorenz():
+    def __init__(self, s=10.0, r=8/3, b=33.5, t=0.001, iter=500):
+        ## パラメータの設定
+        self.s = s
+        self.r = r
+        self.b = b
 
-$i=0$のとき，
-$$x_0 = x_0, y_0 = y_0, z_0 = z_0$$
+        ## 時間刻み
+        self.t = t
 
-$i=1$のとき，(普通のニュートン法)
-\begin{align*}
-x_1 &= x_0 + \{\sigma (y_0 - x_0)\} dt \\
-y_1 &= y_0 + \{x_0(Ra - z_0) - y_0\} dt \\
-z_1 &= z_0 + \{x_0 y_0 - \beta z_0\} dt
-\end{align*}
+        ##イテレーション
+        self.iter = iter
 
-$i=2,...$のとき，(アダムス・バッシュフォース法)
-\begin{align*}
-x_{i+1} &= x_i + \left[\frac{3}{2}\sigma(y_i-x_i) - \frac{1}{2}\sigma(y_{i-1}-x_{i-1})\right] dt \\
-y_{i+1} &= y_i + \left[\frac{3}{2}\{x_i(Ra-z_i)-y_i\} - \frac{1}{2} \{x_{i-1}(Ra-z_{i-1})-y_{i-1}\}\right] dt \\
-z_{i+1} &=  z_i + \left[\frac{3}{2}(x_iy_i-\beta z_i) - \frac{1}{2}(x_{i-1}y_{i-1} - \beta z_{i-1}) \right] dt
-\end{align*}
+    def main(self, X_0):
+        '''
+        Input X_0
+        --------------
+        X_0 : np.array([batch_size * 3])
 
+        Return X, Y, Z
+        -------------
+        x : np.array([iter * batch_size])
+        y : np.array([iter * batch_size])
+        z : np.array([iter * batch_size])
+        '''
+        ## 初期値を取得
+        x_0 = X_0[:,0] 
+        y_0 = X_0[:,1]
+        z_0 = X_0[:,2]
+
+        ## x, y, z を格納する行列を作成
+        x = np.array([x_0])
+        y = np.array([y_0])
+        z = np.array([z_0])
+
+        ##計算を実行とx,y,zに格納
+        for i in tqdm(range(1,self.iter)):
+            if i==1:  # オイラー法
+                next_x = x + self.s * (y - x) * self.t
+                next_y = y + (x * (self.r - z) - y) * self.t
+                next_z = z + (x * y - self.b * z) * self.t
+            else:
+                next_x, next_y, next_z = self.calc(x, y, z)
+
+            x = np.vstack((x, next_x))
+            y = np.vstack((y, next_y))
+            z = np.vstack((z, next_z))
+        
+        ## インスタンス化
+        self.x = x; self.y = y; self.z = z
+
+        ## バッチサイズの取得
+        self.batch = X_0.shape[0]
+
+    def calc(self, x, y, z):
+        next_x = x[-1] + (3/2 * self.s * (y[-1] -x[-1]) - 1/2 * self.s * (y[-2] - x[-2])) * self.t
+        next_y = y[-1] + (3/2 * (x[-1] * (self.r - z[-1]) - y[-1]) - 1/2 * (x[-2] * (self.r - z[-2]) - y[-2])) * self.t
+        next_z = z[-1] + (3/2 * (x[-1] * y[-1] - self.b * z[-1]) - 1/2 * (x[-2] * y[-2] - self.b * z[-2])) * self.t
+        return next_x, next_y, next_z
+
+
+    def show_3d_2d(self):
+        ## 3D
+        plt.style.use('ggplot')
+        plt.rcParams['axes.facecolor'] = 'white'
+
+        fig = plt.figure(figsize=(20,10))
+        ax_3d = fig.add_subplot(1,2,1,projection='3d')
+
+        for i in range(self.batch):
+            ax_3d.plot(self.x[:,i], self.y[:,i], self.z[:,i], label=f'Lorentz curve {i}')
+        ax_3d.legend()
+
+        ## 2D
+        ax_2d_1 = fig.add_subplot(3,2,2)
+        for i in range(self.batch):
+            ax_2d_1.plot(self.x[:,i], label=f'Lorentz curve {i}')
+            ax_2d_1.set_ylabel('x', fontsize=20)
+
+        ax_2d_2 = fig.add_subplot(3,2,4)
+        for i in range(self.batch):
+            ax_2d_2.plot(self.y[:,i], label=f'Lorentz curve {i}')
+            ax_2d_2.set_ylabel('y', fontsize=20)
+
+        ax_2d_3 = fig.add_subplot(3,2,6)
+        for i in range(self.batch):
+            ax_2d_3.plot(self.z[:,i], label=f'Lorentz curve {i}')
+            ax_2d_3.set_ylabel('z', fontsize=20) 
+```
+
+```Python
+## パラメータの設定
+lorenz1 = Lorenz(s=10.0, r=33.5, b=8/3, t=0.001, iter=30000)
+
+## 初期値の設定 (バッチ×3変数)
+X_0 = np.array([[1.0,1.0,1.0],
+                [1.01,1.1,1.1],
+                [0.99,0.99,0.99]])
+## 計算実行
+lorenz1.main(X_0)
+
+## 描写
+lorenz1.show_3d_2d()
+```
