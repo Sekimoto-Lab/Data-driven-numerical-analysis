@@ -70,4 +70,20 @@ from tqdm import tqdm
 ```
 
 
+$i=0$のとき，
+$$x_0 = x_0, y_0 = y_0, z_0 = z_0$$
+
+$i=1$のとき，(普通のニュートン法)
+\begin{align*}
+x_1 &= x_0 + \{\sigma (y_0 - x_0)\} dt \\
+y_1 &= y_0 + \{x_0(Ra - z_0) - y_0\} dt \\
+z_1 &= z_0 + \{x_0 y_0 - \beta z_0\} dt
+\end{align*}
+
+$i=2,...$のとき，(アダムス・バッシュフォース法)
+\begin{align*}
+x_{i+1} &= x_i + \left[\frac{3}{2}\sigma(y_i-x_i) - \frac{1}{2}\sigma(y_{i-1}-x_{i-1})\right] dt \\
+y_{i+1} &= y_i + \left[\frac{3}{2}\{x_i(Ra-z_i)-y_i\} - \frac{1}{2} \{x_{i-1}(Ra-z_{i-1})-y_{i-1}\}\right] dt \\
+z_{i+1} &=  z_i + \left[\frac{3}{2}(x_iy_i-\beta z_i) - \frac{1}{2}(x_{i-1}y_{i-1} - \beta z_{i-1}) \right] dt
+\end{align*}
 
