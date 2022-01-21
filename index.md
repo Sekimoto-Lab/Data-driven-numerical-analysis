@@ -15,7 +15,7 @@
 
 ### [A sample convolutional neural network (TensorFlow)](TensorFlow_CNN.md)
 
-### [Lorentzモデルの数値計算](Lorentz.md) 
+### [Lorentz model (by students)](Lorentz.md) 
 
 ---
 ### Markdown 記法について
