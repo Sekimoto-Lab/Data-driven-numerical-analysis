@@ -24,10 +24,11 @@ if itemp==1:
     CFLk=CFLv
 ```
 
-代表速度については，上壁面の速度とする．動かない場合は自然対流(重力)による代表速度を考える．
+代表速度については，上壁面の速度とする．上壁面が動かない場合(Uwall=0)は自然対流(重力)による代表速度を考える．
 ```Python
 if Uwall != 0.0:
-    Uref = Uwall
+    # Uref = Uwall
+    Uref = Uwall + sqrt(gbeta*Lx) # こちらの方がより安定 (2023-07-05 sekimoto) 
 elif gbeta != 0.0:
     Uref = np.sqrt(gbeta*Lx) 
 else:
@@ -45,18 +46,18 @@ if itemp==1:
     Taux=np.zeros([Ny+1, Nx+1],dtype=np.float64)
 ```
 
-温度に関する関数(calc_temp, set_bc_temp, add_grav)を追加． 重力はy方向のみ考慮．
+温度に関する関数(calc_temp, set_bc_temp, add_grav)を追加． 重力はy方向のみ考慮．(一部修正 T --> Taux, 2023-07-05 sekimoto)
 ```Python
 def calc_temp(T,Taux,u,v):
     for jc in range(1,Ny):
         for ic in range(1,Nx):
             tdiff = (Taux[jc, ic-1]-2e0*Taux[jc,ic]+Taux[jc, ic+1])/dx2 \
                     +(Taux[jc-1, ic]-2e0*Taux[jc,ic]+Taux[jc+1, ic])/dy2
-            tconv_x = ( ( u[jc, ic]*(-T[jc, ic-1]+T[jc, ic])/dx ) \
-                               +( u[jc, ic+1]*(-T[jc, ic]+T[jc, ic+1])/dx ) \
+            tconv_x = ( ( u[jc, ic]*(-Taux[jc, ic-1]+Taux[jc, ic])/dx ) \
+                               +( u[jc, ic+1]*(-Taux[jc, ic]+Taux[jc, ic+1])/dx ) \
                                )/2e0             
-            tconv_y = (  (v[jc, ic]*(-T[jc-1,ic]+T[jc, ic])/dy ) \
-                                 +(v[jc+1,ic]*(-T[jc,ic]+T[jc+1,ic])/dy ) \
+            tconv_y = (  (v[jc, ic]*(-Taux[jc-1,ic]+Taux[jc, ic])/dy ) \
+                                 +(v[jc+1,ic]*(-Taux[jc,ic]+Taux[jc+1,ic])/dy ) \
                                 )/2e0
             T[jc][ic]= Taux[jc][ic] -dt*(tconv_x + tconv_y) + dt*kappa*tdiff 
 # ---------------------------------------------- #
