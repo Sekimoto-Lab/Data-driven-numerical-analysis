@@ -66,7 +66,7 @@ model.fit(trainX,trainY, n_epoch = 20, batch_size=100, validation_set=0.1, show_
 
 ## 予測モデルの結果を確認(testXが画像データ, predが予測結果)
 ```Python
-# prediction
+# prediction 
 pred = np.array(model.predict(testX)).argmax(axis=1)
 print(pred)
 ```
@@ -75,7 +75,7 @@ print(pred)
 print(testY.shape)
 label = testY.argmax(axis=1)
 print(label)
-
+ 
 accuracy = np.mean(pred==label, axis=0)
 print(accuracy)
 ```
