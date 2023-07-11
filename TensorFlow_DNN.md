@@ -75,7 +75,6 @@ print(pred)
 print(testY.shape)
 label = testY.argmax(axis=1)
 print(label)
-  
 accuracy = np.mean(pred==label, axis=0)
 print(accuracy)
 ```
