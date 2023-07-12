@@ -85,19 +85,19 @@ model.fit(trainX, trainY, n_epoch=20, batch_size=100, validation_set=0.1, show_m
 ```
 
 # 結果のチェック
-- testデータを判別
-```Python
+テストデータ(X)に作成したモデルを適用してYを予測
+```Python 
 # prediction
 pred = np.array(model.predict(testX)).argmax(axis=1)
-print(pred)
-
-# check the answer
-label = testY.argmax(axis=1)
-print(label)
+print(pred) 
 ```
 
 - 全体の精度を確認
 ```Python
+# check the answer
+label = testY.argmax(axis=1)
+print(label)
+ 
 accuracy = np.mean(pred == label, axis=0)
 print(accuracy)
 ```
