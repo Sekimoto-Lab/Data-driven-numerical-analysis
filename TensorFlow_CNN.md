@@ -92,8 +92,8 @@ pred = np.array(model.predict(testX)).argmax(axis=1)
 print(pred) 
 ```
 
-- 全体の精度を確認
-```Python
+全体の精度を確認
+```Python 
 # check the answer
 label = testY.argmax(axis=1)
 print(label)
